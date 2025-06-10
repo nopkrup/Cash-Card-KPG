@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 
 export default function App() {
@@ -32,22 +33,22 @@ export default function App() {
     const cashGap = price - totalValue;
     const totalToPay = totalPaid + cashGap;
     const discountAmount = totalValue - totalPaid;
-  const discountPercent = ((discountAmount / totalValue) * 100).toFixed(2);
+    const discountPercent = ((discountAmount / totalValue) * 100).toFixed(2);
 
-  let nextBestOption = cardOptions.find(card => card.value > remaining);
-  let suggestPurchase = nextBestOption ? nextBestOption.value - remaining : 0;
-  let remainingCashCardValue = nextBestOption ? nextBestOption.value - suggestPurchase : 0;
+    let nextBestOption = cardOptions.find(card => card.value > remaining);
+    let suggestPurchase = nextBestOption ? nextBestOption.value - remaining : 0;
+    let remainingCashCardValue = nextBestOption ? nextBestOption.value - suggestPurchase : 0;
 
     setResult({
-    discountAmount: totalValue - totalPaid,
-    suggestPurchase: suggestPurchase,
-    remainingCashCardValue: remainingCashCardValue,
       cardsUsed,
       totalValue,
       totalPaid,
       cashGap,
       totalToPay,
-      discountPercent
+      discountAmount,
+      discountPercent,
+      suggestPurchase,
+      remainingCashCardValue
     });
   };
 
@@ -82,7 +83,13 @@ export default function App() {
             <p className="mt-2 font-semibold text-blue-800">💳 ชำระเงินครั้งที่ 1: ค่าบัตร Cash Card จำนวน {result.totalPaid.toLocaleString()} บาท</p>
             <p className="font-semibold text-blue-800">💸 ชำระเงินครั้งที่ 2: ส่วนต่างจากมูลค่า Cash Card จำนวน {result.cashGap.toLocaleString()} บาท</p>
             <p className="font-bold text-red-600 text-xl mt-2">💰 รวมลูกค้าต้องจ่ายทั้งหมด: {result.totalToPay.toLocaleString()} บาท</p>
-            <p className="text-green-600 font-bold mt-2">ส่วนลดที่ได้รับ: {result.discountPercent}%</p>
+            <p className="text-green-600 font-bold mt-2">ส่วนลดที่ได้รับ: {result.discountAmount.toLocaleString()} บาท ({result.discountPercent}%)</p>
+
+            <div className="mt-4 border-t pt-2">
+              <h3 className="font-bold text-blue-700">ข้อเสนอที่ดีที่สุดหากเหลือมูลค่าเล็กน้อย:</h3>
+              <p>ควรซื้อเพิ่มอีก: {result.suggestPurchase.toLocaleString()} บาท</p>
+              <p>มูลค่า Cash Card คงเหลือ: {result.remainingCashCardValue.toLocaleString()} บาท</p>
+            </div>
           </div>
         )}
       </div>
