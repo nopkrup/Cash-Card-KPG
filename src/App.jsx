@@ -14,43 +14,33 @@ export default function App() {
   ];
 
   const calculate = () => {
-    let bestCombo = null;
-    let maxTotalValue = 0;
+    let remaining = price;
+    const cardsUsed = [];
+    let totalValue = 0;
+    let totalPaid = 0;
 
-    const maxCount = 10;
-
-    const tryCombo = (combo) => {
-      let totalValue = 0;
-      let totalPaid = 0;
-      for (let i = 0; i < combo.length; i++) {
-        totalValue += cardOptions[i].value * combo[i];
-        totalPaid += cardOptions[i].price * combo[i];
+    for (const card of cardOptions) {
+      const count = Math.floor(remaining / card.value);
+      if (count > 0) {
+        cardsUsed.push({ ...card, count });
+        totalValue += card.value * count;
+        totalPaid += card.price * count;
+        remaining -= card.value * count;
       }
+    }
 
-      if (totalValue <= price && totalValue > maxTotalValue) {
-        maxTotalValue = totalValue;
-        bestCombo = {
-          cardsUsed: combo.map((count, i) => ({ ...cardOptions[i], count })).filter(c => c.count > 0),
-          totalValue,
-          totalPaid,
-          remaining: price - totalValue,
-          discountPercent: (((totalValue - totalPaid) / totalValue) * 100).toFixed(2),
-        };
-      }
-    };
+    const cashGap = price - totalValue;
+    const totalToPay = totalPaid + cashGap;
+    const discountPercent = (((totalValue - totalPaid) / totalValue) * 100).toFixed(2);
 
-    const recurse = (combo = [], depth = 0) => {
-      if (depth === cardOptions.length) {
-        tryCombo(combo);
-        return;
-      }
-      for (let i = 0; i <= maxCount; i++) {
-        recurse([...combo, i], depth + 1);
-      }
-    };
-
-    recurse();
-    setResult(bestCombo);
+    setResult({
+      cardsUsed,
+      totalValue,
+      totalPaid,
+      cashGap,
+      totalToPay,
+      discountPercent
+    });
   };
 
   return (
@@ -82,8 +72,8 @@ export default function App() {
             </ul>
             <p>มูลค่า Cash Card รวม: {result.totalValue.toLocaleString()} บาท</p>
             <p className="mt-2 font-semibold text-blue-800">💳 ชำระเงินครั้งที่ 1: ค่าบัตร Cash Card จำนวน {result.totalPaid.toLocaleString()} บาท</p>
-            <p className="font-semibold text-blue-800">💸 ชำระเงินครั้งที่ 2: ส่วนต่างจากมูลค่า Cash Card จำนวน {(price - result.totalValue).toLocaleString()} บาท</p>
-            <p className="font-semibold text-black mt-1">💰 รวมลูกค้าต้องจ่ายทั้งหมด: {(result.totalPaid + (price - result.totalValue)).toLocaleString()} บาท</p>
+            <p className="font-semibold text-blue-800">💸 ชำระเงินครั้งที่ 2: ส่วนต่างจากมูลค่า Cash Card จำนวน {result.cashGap.toLocaleString()} บาท</p>
+            <p className="font-bold text-red-600 text-xl mt-2">💰 รวมลูกค้าต้องจ่ายทั้งหมด: {result.totalToPay.toLocaleString()} บาท</p>
             <p className="text-green-600 font-bold mt-2">ส่วนลดที่ได้รับ: {result.discountPercent}%</p>
           </div>
         )}
