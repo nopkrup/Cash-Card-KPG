@@ -31,9 +31,17 @@ export default function App() {
 
     const cashGap = price - totalValue;
     const totalToPay = totalPaid + cashGap;
-    const discountPercent = (((totalValue - totalPaid) / totalValue) * 100).toFixed(2);
+    const discountAmount = totalValue - totalPaid;
+  const discountPercent = ((discountAmount / totalValue) * 100).toFixed(2);
+
+  let nextBestOption = cardOptions.find(card => card.value > remaining);
+  let suggestPurchase = nextBestOption ? nextBestOption.value - remaining : 0;
+  let remainingCashCardValue = nextBestOption ? nextBestOption.value - suggestPurchase : 0;
 
     setResult({
+    discountAmount: totalValue - totalPaid,
+    suggestPurchase: suggestPurchase,
+    remainingCashCardValue: remainingCashCardValue,
       cardsUsed,
       totalValue,
       totalPaid,
