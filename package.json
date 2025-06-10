@@ -1,5 +1,5 @@
 {
-  "name": "cashcard-calculator-clean-ui",
+  "name": "cashcard-calculator-no-overpay",
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
