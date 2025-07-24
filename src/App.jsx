@@ -11,10 +11,10 @@ export default function App() {
   // Array of available cash card options, with their price and gift card value
   // The order here doesn't strictly matter as they will be sorted by effectiveValue in calculate()
   const cardOptions = [
-    { price: 100000, giftCard: 44000 },
-    { price: 50000, giftCard: 22000 },
-    { price: 30000, giftCard: 13200 },
-    { price: 5000, giftCard: 2200 },
+    { price: 100000, giftCard: 40000 },
+    { price: 50000, giftCard: 20000 },
+    { price: 30000, giftCard: 12000 },
+    { price: 5000, giftCard: 2000 },
   ];
 
   // Function to calculate the optimal cash card combination based on the selected mode
@@ -65,9 +65,9 @@ export default function App() {
     const totalToPay = totalPaidForCards + cashGap;
 
     let discountPercent = 0;
-    if (calculationMode === 'option1' && totalEffectiveValue > 0) {
-      // Discount only applies to Option 1 where gift cards provide extra value
-      discountPercent = (((totalEffectiveValue - totalPaidForCards) / totalEffectiveValue) * 100).toFixed(2);
+    // Calculate discount percentage based on actual product price and total paid by customer
+    if (calculationMode === 'option1' && price > 0) { // Ensure price is greater than 0 to avoid division by zero
+      discountPercent = (((price - totalToPay) / price) * 100).toFixed(2);
     } else if (calculationMode === 'option2') {
       // For option 2, there's no "discount" in the sense of receiving extra value from gift cards
       discountPercent = 0;
@@ -117,7 +117,7 @@ export default function App() {
                 onChange={() => setCalculationMode('option2')}
                 className="form-radio h-5 w-5 text-blue-600"
               />
-              <span className="ml-2 text-gray-700 text-base">ตัวเลือกที่ 2: ซื้อ Cash Card รับ Gift Card ใช้บิลถัดไป </span>
+              <span className="ml-2 text-gray-700 text-base">ตัวเลือกที่ 2: ซื้อ Cash Card จ่ายค่าสินค้าอย่างเดียวไม่รับ Gift Card</span>
             </label>
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function App() {
               )}
             </ul>
             {/* Summary of total effective value covered by cash cards */}
-            <p className="text-lg mb-2">มูลค่ารวม Cash + Gift Card: <span className="font-bold text-blue-700">{result.totalEffectiveValue.toLocaleString()}</span> บาท</p>
+            <p className="text-lg mb-2">มูลค่ารวมที่ครอบคลุมโดย Cash Card: <span className="font-bold text-blue-700">{result.totalEffectiveValue.toLocaleString()}</span> บาท</p>
             {/* First payment details: actual cost of cash cards */}
             <p className="mt-4 font-semibold text-blue-800 text-lg">💳 ชำระเงินครั้งที่ 1: ค่าบัตร Cash Card จำนวน <span className="font-bold">{result.totalPaidForCards.toLocaleString()}</span> บาท</p>
             {/* Second payment details: cash gap */}
