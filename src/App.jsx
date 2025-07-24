@@ -13,7 +13,7 @@ export default function App() {
   const cardOptions = [
     { price: 100000, giftCard: 44000 },
     { price: 50000, giftCard: 22000 },
-    { price: 30000, giftCard: 132000 },
+    { price: 30000, giftCard: 13200 },
     { price: 5000, giftCard: 2200 },
   ];
 
