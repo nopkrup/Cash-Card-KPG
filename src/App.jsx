@@ -11,10 +11,10 @@ export default function App() {
   // Array of available cash card options, with their price and gift card value
   // The order here doesn't strictly matter as they will be sorted by effectiveValue in calculate()
   const cardOptions = [
-    { price: 100000, giftCard: 40000 },
-    { price: 50000, giftCard: 20000 },
-    { price: 30000, giftCard: 12000 },
-    { price: 5000, giftCard: 2000 },
+    { price: 100000, giftCard: 44000 },
+    { price: 50000, giftCard: 22000 },
+    { price: 30000, giftCard: 13200 },
+    { price: 5000, giftCard: 2200 },
   ];
 
   // Function to calculate the optimal cash card combination based on the selected mode
