@@ -117,7 +117,7 @@ export default function App() {
                 onChange={() => setCalculationMode('option2')}
                 className="form-radio h-5 w-5 text-blue-600"
               />
-              <span className="ml-2 text-gray-700 text-base">ตัวเลือกที่ 2: ซื้อ Cash Card จ่ายค่าสินค้าอย่างเดียวไม่รับ Gift Card</span>
+              <span className="ml-2 text-gray-700 text-base">ตัวเลือกที่ 2: ซื้อ Cash Card รับ Gift Card ใช้บิลถัดไป </span>
             </label>
           </div>
         </div>
@@ -157,7 +157,7 @@ export default function App() {
               )}
             </ul>
             {/* Summary of total effective value covered by cash cards */}
-            <p className="text-lg mb-2">มูลค่ารวมที่ครอบคลุมโดย Cash Card: <span className="font-bold text-blue-700">{result.totalEffectiveValue.toLocaleString()}</span> บาท</p>
+            <p className="text-lg mb-2">มูลค่ารวม Cash + Gift Card: <span className="font-bold text-blue-700">{result.totalEffectiveValue.toLocaleString()}</span> บาท</p>
             {/* First payment details: actual cost of cash cards */}
             <p className="mt-4 font-semibold text-blue-800 text-lg">💳 ชำระเงินครั้งที่ 1: ค่าบัตร Cash Card จำนวน <span className="font-bold">{result.totalPaidForCards.toLocaleString()}</span> บาท</p>
             {/* Second payment details: cash gap */}
