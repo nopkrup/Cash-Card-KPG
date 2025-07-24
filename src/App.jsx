@@ -153,7 +153,7 @@ export default function App() {
                   </li>
                 ))
               ) : (
-                <li>ไม่มีการใช้ Cash Card</li> {/* Message if no cash cards are used */}
+                <li>ไม่มีการใช้ Cash Card</li> /* Message if no cash cards are used */
               )}
             </ul>
             {/* Summary of total effective value covered by cash cards */}
