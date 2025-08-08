@@ -11,10 +11,10 @@ export default function App() {
   // Array of available cash card options, with their price and gift card value
   // The order here doesn't strictly matter as they will be sorted by effectiveValue in calculate()
   const cardOptions = [
-    { price: 100000, giftCard: 44000 },
-    { price: 50000, giftCard: 22000 },
-    { price: 30000, giftCard: 13200 },
-    { price: 5000, giftCard: 2200 },
+    { price: 100000, giftCard: 40000 },
+    { price: 50000, giftCard: 20000 },
+    { price: 30000, giftCard: 12000 },
+    { price: 10000, giftCard: 4000 },
   ];
 
   // Function to calculate the optimal cash card combination based on the selected mode
@@ -91,7 +91,7 @@ export default function App() {
     <div className="min-h-screen bg-blue-900 p-4 flex items-center justify-center font-sans">
       <div className="max-w-xl w-full mx-auto bg-white rounded-2xl shadow-lg p-6 text-gray-800">
         {/* Title of the application */}
-        <h1 className="text-3xl font-extrabold text-blue-800 mb-6 text-center">เครื่องคำนวณการซื้อ Cash Card</h1>
+        <h1 className="text-3xl font-extrabold text-blue-800 mb-6 text-center">เครื่องคำนวณการซื้อ Cash Card New</h1>
 
         {/* Calculation Mode Selection */}
         <div className="mb-6">
